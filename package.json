@@ -1,0 +1,15 @@
+{
+  "name": "tow-hook",
+  "version": "0.0.1",
+  "description": "Tunnel all outgoing TCP connections in your application through WebSockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "mitm": "^1.7.2",
+    "tcp-over-websockets": "^2.1.0"
+  }
+}
