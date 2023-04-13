@@ -6,7 +6,7 @@ const hookToTunnel = (tunnel) => {
   const tunnelOnConnection = (socket, options) => {
     const destinationHostPort = options.socket
       ? `${options.servername || options.socket.remoteAddress}:${options.socket.remotePort}`
-      : `${options.host}:${options.port}`
+      : `${options.servername || options.host}:${options.port}`
     tunnelTo(tunnel, destinationHostPort)(socket)
   }
   const bypassIfTunnel = (socket, options) => {
