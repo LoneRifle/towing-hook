@@ -1,5 +1,7 @@
 const Mitm = require('mitm')
+const TlsSocket = require('mitm/lib/tls_socket')
 const { tunnelTo } = require('tcp-over-websockets/tunnel')
+const { shimTLS } = require('./lib/shim-tls')
 
 const hookToTunnel = (tunnel) => {
   const mitm = Mitm()
@@ -7,7 +9,10 @@ const hookToTunnel = (tunnel) => {
     const destinationHostPort = options.socket
       ? `${options.servername || options.socket.remoteAddress}:${options.socket.remotePort}`
       : `${options.servername || options.host}:${options.port}`
-    tunnelTo(tunnel, destinationHostPort)(socket)
+
+    const isTLS = TlsSocket.prototype.isPrototypeOf(socket)
+
+    tunnelTo(tunnel, destinationHostPort)(isTLS ? shimTLS(socket) : socket)
   }
   const bypassIfTunnel = (socket, options) => {
     const destinationHostPort = `${options.host}:${options.port}`
