@@ -1,5 +1,5 @@
 {
-  "name": "tow-hook",
+  "name": "towing-hook",
   "version": "0.0.1",
   "description": "Tunnel all outgoing TCP connections in your application through WebSockets",
   "main": "index.js",

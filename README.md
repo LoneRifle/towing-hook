@@ -1,4 +1,4 @@
-# tow-hook
+# towing-hook
 
 Route your Node.js application's TCP connectivity through WebSockets. 
 Built on [tcp-over-websockets](https://github.com/derhuerst/tcp-over-websockets).
@@ -33,15 +33,15 @@ $ export TOW_TUNNEL=ws://localhost:8080
 # tcp-over-websockets dependency by setting this env var
 $ export DEBUG=tcp-over-websockets:*
 
-# Use tow-hook without modifying your application
-$ node -r tow-hook/register your-application.js
+# Use towing-hook without modifying your application
+$ node -r towing-hook/register your-application.js
 
 ```
 
 ### Programmatic use
 
 ```js
-const { hookToTunnel } = require('tow-hook')
+const { hookToTunnel } = require('towing-hook')
 
 hookToTunnel('ws://localhost:8080')
 
@@ -56,7 +56,7 @@ This package glues two dependencies together,
 [tcp-over-websockets](https://github.com/derhuerst/tcp-over-websockets).
 
 When invoked, mitm.js will intercept most calls to create connections,
-in particular `net.connect()` and `tls.connect()`. tow-hook will then
+in particular `net.connect()` and `tls.connect()`. towing-hook will then
 to attach the sockets created by mitm.js to tcp-over-websockets, which will
 route data from those sockets over a websocket connection.
 
@@ -71,7 +71,7 @@ grafted on using [Forge](https://github.com/digitalbazaar/forge).
 mitm.js does not intercept connections made with `net.Socket#connect()`
 or `tls.Socket#connect()`, as it does not stub the Socket constructor 
 in the `net` module. If your application or dependency uses this for 
-connectivity, tow-hook will not route your connection. 
+connectivity, towing-hook will not route your connection. 
 
 ie, the following will not work:
 
