@@ -6,8 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoneRifle/towing-hook.git"
+  },
   "author": "LoneRifle <LoneRifle@users.noreply.github.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LoneRifle/towing-hook/issues"
+  },
   "dependencies": {
     "mitm": "^1.7.2",
     "node-forge": "^1.3.1",
