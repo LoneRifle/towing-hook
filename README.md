@@ -7,15 +7,18 @@ Useful for scenarios where you are unable to make socket connections, eg:
 
 - You are behind a corporate firewall that only allows outbound http(s) traffic
 
-- If you are using [stackblitz](https://stackblitz.com/), which runs Node.js 
+- If you are using [StackBlitz](https://stackblitz.com/), which runs Node.js 
   completely within the browser, and hence does not support socket connections
 
 ## Quickstart
 
-### Preparation
+Out-of-the-box, this package will route connections through a tunnel
+service maintained by the package author. You may wish to set-up your
+own tunnel service by following the instructions below.
+### Setting up a self-hosted tunnel service
 
-Host a tcp-over-websockets tunnel service. This will accept your 
-websocket connection and make a socket connection on your behalf:
+Use npx to run a tcp-over-websockets tunnel service. This will accept 
+your websocket connection and make a socket connection on your behalf:
 
 ```sh
 $ DEBUG=tcp-over-websockets:* npx -p tcp-over-websockets tcp-over-websockets-server
@@ -25,8 +28,9 @@ listening on 8080
 ### As a module hook
 
 ```sh
-# Set an optional env var to point to the websocket gateway
-# Defaults to ws://localhost:8080
+# By default, connections go through wss://towing-service.fly.dev.
+# This is maintained by the package author.
+# If you prefer to use another tunnel service, set this env var:
 $ export TOW_TUNNEL=ws://localhost:8080
 
 # You may wish to enable debug logging for the underlying
@@ -57,7 +61,7 @@ This package glues two dependencies together,
 
 When invoked, mitm.js will intercept most calls to create connections,
 in particular `net.connect()` and `tls.connect()`. towing-hook will then
-to attach the sockets created by mitm.js to tcp-over-websockets, which will
+attach the sockets created by mitm.js to tcp-over-websockets, which will
 route data from those sockets over a websocket connection.
 
 mitm.js creates mock sockets that behave like raw socket connections, 
