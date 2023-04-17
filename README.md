@@ -10,6 +10,8 @@ Useful for scenarios where you are unable to make socket connections, eg:
 - If you are using [StackBlitz](https://stackblitz.com/), which runs Node.js 
   completely within the browser, and hence does not support socket connections
 
+See an example of this [here](https://stackblitz.com/edit/node-kzyjx7?file=index.js).
+
 ## Quickstart
 
 Out-of-the-box, this package will route connections through a tunnel
