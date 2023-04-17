@@ -1,6 +1,6 @@
 const { hookToTunnel } = require('./index')
 
-const tunnel = process.env.TOW_TUNNEL || 'wss://towing-service.fly.dev'
+const tunnel = process.env.TOW_TUNNEL || 'wss://towing-service.fly.dev:443'
 
 console.info(`Tunnelling TCP connections via ${tunnel}`)
 

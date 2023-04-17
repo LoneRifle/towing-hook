@@ -17,8 +17,7 @@ const hookToTunnel = (tunnel) => {
   const bypassIfTunnel = (socket, options) => {
     const destinationHostPort = `${options.host}:${options.port}`
     if (
-      tunnel.endsWith(destinationHostPort) ||
-      (tunnel.endsWith(options.host) || [443, 80].includes(options.port))
+      tunnel.endsWith(destinationHostPort)
     ) {
       socket.bypass()
     }
