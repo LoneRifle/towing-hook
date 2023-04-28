@@ -1,15 +1,24 @@
 const Mitm = require('mitm')
 const { tunnelTo } = require('tcp-over-websockets/tunnel')
 const { shimTLS } = require('./lib/shim-tls')
+const pipe = require('pump')
 
 const hookToTunnel = (tunnel) => {
   const mitm = Mitm()
   const tunnelOnConnection = (socket, options) => {
-    const destinationHostPort = options.socket
-      ? `${options.servername || options.socket.remoteAddress}:${options.socket.remotePort}`
-      : `${options.servername || options.host}:${options.port}`
-
-    tunnelTo(tunnel, destinationHostPort)(socket.encrypted ? shimTLS(socket) : socket)
+    if (socket.encrypted && options.socket) {
+      const socketWithTLS = shimTLS(socket)
+      const onError = (err) => {
+        if (err){
+          console.error(err)
+        }
+      }
+      pipe(socketWithTLS, options.socket, onError)
+      pipe(options.socket, socketWithTLS, onError)
+    } else {
+      const destinationHostPort = `${options.servername || options.host}:${options.port}`
+      tunnelTo(tunnel, destinationHostPort)(socket.encrypted ? shimTLS(socket) : socket)
+    }
   }
   const bypassIfTunnel = (socket, options) => {
     const destinationHostPort = `${options.host}:${options.port}`
