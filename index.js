@@ -10,9 +10,7 @@ const hookToTunnel = (tunnel) => {
       ? `${options.servername || options.socket.remoteAddress}:${options.socket.remotePort}`
       : `${options.servername || options.host}:${options.port}`
 
-    const isTLS = TlsSocket.prototype.isPrototypeOf(socket)
-
-    tunnelTo(tunnel, destinationHostPort)(isTLS ? shimTLS(socket) : socket)
+    tunnelTo(tunnel, destinationHostPort)(socket.encrypted ? shimTLS(socket) : socket)
   }
   const bypassIfTunnel = (socket, options) => {
     const destinationHostPort = `${options.host}:${options.port}`
