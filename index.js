@@ -1,5 +1,4 @@
 const Mitm = require('mitm')
-const TlsSocket = require('mitm/lib/tls_socket')
 const { tunnelTo } = require('tcp-over-websockets/tunnel')
 const { shimTLS } = require('./lib/shim-tls')
 
